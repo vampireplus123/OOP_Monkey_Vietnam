@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Pistol : BaseWeapon, IReloadAble
+public class Pistol : BaseWeapon, IReloadAble,IMagazines
 {
     private int maxAmmo = 12;
     private int currentAmmo;
+
+    private int Magazines = 3;
 
     void Start()
     {
@@ -29,7 +31,7 @@ public class Pistol : BaseWeapon, IReloadAble
         if (currentAmmo <= 0)
         {
             Debug.Log($"{weaponName}: Out of ammo!");
-            return;
+            ReloadAmmo();
         }
 
         nextFireTime = Time.time;
@@ -40,6 +42,17 @@ public class Pistol : BaseWeapon, IReloadAble
     public virtual void ReloadAmmo()
     {
         currentAmmo = maxAmmo;
+        MagRemain();
         Debug.Log($"{weaponName}: Reloaded.");
+    }
+    public void MagRemain()
+    {
+        if(Magazines <=0)
+        {
+            Debug.Log($"{weaponName}: No more magazines left!");
+            return;
+        }
+        Debug.Log($"{weaponName}: Magazines left: {Magazines}");
+        Magazines--;
     }
 }

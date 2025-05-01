@@ -3,11 +3,14 @@ using UnityEngine;
 public abstract class BaseWeapon : MonoBehaviour, IWeapons
 {
     protected string weaponName;
+    protected int AmmoPerFire;
+
     protected float fireRate = 0.5f; 
     protected float nextFireTime = 0f;
+
     protected bool isEquipped = false;
-    protected int AmmoPerFire;
     public bool IsEquipped => isEquipped;
+
 
     public virtual  void EquipWeapon()
     {

@@ -6,6 +6,10 @@ public class Laser : BaseWeapon, IOverHeatable
     private const float maxHeat = 100f;
     private const float heatIncreaseRate = 10f;
 
+    void Start()
+    {
+        weaponName = "Laser";
+    }
     public override void Fire()
     {
         if (!isEquipped)
@@ -18,11 +22,14 @@ public class Laser : BaseWeapon, IOverHeatable
             OverHeat();
         }
         heatLevel += heatIncreaseRate;
+        Debug.Log($"{weaponName} fired. Heat level: {heatLevel}");
     }
 
     public void OverHeat()
     {
         Debug.Log($"{weaponName} overheated!");
-        heatLevel -= heatIncreaseRate; 
+        heatLevel -= 10f;
+        Debug.Log($"{weaponName} is cooling down.");
     }
+    
 }

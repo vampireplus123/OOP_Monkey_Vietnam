@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class ShotGun : BaseWeapon, IReloadAble
+public class ShotGun : BaseWeapon, IReloadAble,IMagazines
 {
     private int maxAmmo = 8;
     private int currentAmmo;
- 
+    private int Magazines = 2;
 
     void Start()
     {
@@ -38,6 +38,18 @@ public class ShotGun : BaseWeapon, IReloadAble
     public virtual void ReloadAmmo()
     {
         currentAmmo = maxAmmo;
+        Magazines--;
+        MagRemain();
         Debug.Log($"{weaponName}: Reloaded.");
+    }
+     public void MagRemain()
+    {
+        if(Magazines <=0)
+        {
+            Debug.Log($"{weaponName}: No more magazines left!");
+            return;
+        }
+        Debug.Log($"{weaponName}: Magazines left: {Magazines}");
+        Magazines--;
     }
 }
