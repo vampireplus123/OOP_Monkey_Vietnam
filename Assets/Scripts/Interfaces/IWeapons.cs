@@ -1,4 +1,4 @@
-interface Iweapons
+interface IWeapons
 {  
     void EquipWeapon();
     void UnequipWeapon();
