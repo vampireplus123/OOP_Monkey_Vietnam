@@ -30,13 +30,4 @@ public abstract class BaseWeapon : MonoBehaviour, IWeapons
         nextFireTime = Time.time + fireRate;
         Debug.Log($"{weaponName} fired.");
     }
-    public virtual void Aim()
-    {
-        if (!isEquipped)
-        {
-            Debug.Log($"{weaponName} is not equipped.");
-            return;
-        }
-        Debug.Log($"{weaponName} aimed.");
-    }
 }

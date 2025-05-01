@@ -1,14 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
 public class WeaponsManager : MonoBehaviour
 {
     private List<IWeapons> weapons = new List<IWeapons>();
     private IWeapons currentWeapon;
     private int currentIndex = 0;
 
-    [SerializeField] private List<MonoBehaviour> weaponBehaviours; 
+    [SerializeField] private List<MonoBehaviour> weaponBehaviours; // chứa script kế thừa IWeapon
 
     void Awake()
     {
@@ -20,12 +18,13 @@ public class WeaponsManager : MonoBehaviour
             }
         }
 
-        EquipWeapon(currentIndex);
+        AttachWeapons(currentIndex);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) currentWeapon.Fire();
+        if (Input.GetMouseButtonDown(0))
+            currentWeapon.Fire();
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -37,7 +36,7 @@ public class WeaponsManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
         if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(2);
 
     }
 
@@ -47,10 +46,10 @@ public class WeaponsManager : MonoBehaviour
 
         currentWeapon.UnequipWeapon();
         currentIndex = index;
-        EquipWeapon(index);
+        AttachWeapons(index);
     }
 
-    void EquipWeapon(int index)
+    void AttachWeapons(int index)
     {
         currentWeapon = weapons[index];
         currentWeapon.EquipWeapon();
