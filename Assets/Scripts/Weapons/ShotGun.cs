@@ -6,10 +6,15 @@ public class ShotGun : BaseWeapon, IReloadAble,IMagazines
     private int currentAmmo;
     private int Magazines = 2;
 
+
+
+      void Awake()
+    {
+        weaponName = "Pistol";
+    }
     void Start()
     {
         currentAmmo = maxAmmo;
-        weaponName = "Shotgun";
         AmmoPerFire = 2;
     }
 
@@ -30,19 +35,19 @@ public class ShotGun : BaseWeapon, IReloadAble,IMagazines
             return;
         }
 
-        nextFireTime = Time.time;
+        nextFireTime = Time.time + fireRate;
         currentAmmo -= 2;
         Debug.Log($"{weaponName}: Fired. Ammo left: {currentAmmo}");
     }
 
     public virtual void ReloadAmmo()
     {
-        currentAmmo = maxAmmo;
+        currentAmmo += maxAmmo;
         Magazines--;
-        MagRemain();
         Debug.Log($"{weaponName}: Reloaded.");
+        ReloadBulletMag();
     }
-     public void MagRemain()
+     public void ReloadBulletMag()
     {
         if(Magazines <=0)
         {

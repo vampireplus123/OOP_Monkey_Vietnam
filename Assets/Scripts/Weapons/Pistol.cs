@@ -7,13 +7,19 @@ public class Pistol : BaseWeapon, IReloadAble,IMagazines
 {
     private int maxAmmo = 12;
     private int currentAmmo;
+    
+    protected float fireRate = 0.5f; 
+    protected float nextFireTime = 0f;
+
+    protected string weaponName;
+    private int AmmoPerFire;
 
     private int Magazines = 3;
 
     void Start()
     {
-        currentAmmo = maxAmmo;
         weaponName = "Pistol";
+        currentAmmo = maxAmmo;
         AmmoPerFire = 1;
     }
     
@@ -21,31 +27,21 @@ public class Pistol : BaseWeapon, IReloadAble,IMagazines
     public override void Fire()
     {
         if (!isEquipped) return;
-
-        if (Time.time - nextFireTime < fireRate)
-        {
-            Debug.Log($"{weaponName}: Wait for fire rate cooldown.");
-            return;
-        }
-
-        if (currentAmmo <= 0)
+        base.Fire();
+        if(currentAmmo <= 0)
         {
             Debug.Log($"{weaponName}: Out of ammo!");
             ReloadAmmo();
         }
-
-        nextFireTime = Time.time;
-        currentAmmo-= AmmoPerFire;
-        Debug.Log($"{weaponName}: Fired. Ammo left: {currentAmmo}");
     }
 
     public virtual void ReloadAmmo()
     {
-        currentAmmo = maxAmmo;
-        MagRemain();
+        currentAmmo += maxAmmo;
         Debug.Log($"{weaponName}: Reloaded.");
+        ReloadBulletMag();
     }
-    public void MagRemain()
+    public void ReloadBulletMag()
     {
         if(Magazines <=0)
         {

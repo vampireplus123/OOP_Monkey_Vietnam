@@ -6,9 +6,9 @@ public class Laser : BaseWeapon, IOverHeatable
     private const float maxHeat = 100f;
     private const float heatIncreaseRate = 10f;
 
-    void Start()
+      void Awake()
     {
-        weaponName = "Laser";
+        weaponName = "Pistol";
     }
     public override void Fire()
     {

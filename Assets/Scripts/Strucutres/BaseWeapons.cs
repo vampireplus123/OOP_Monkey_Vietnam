@@ -4,7 +4,8 @@ public abstract class BaseWeapon : MonoBehaviour, IWeapons
 {
     protected string weaponName;
     protected int AmmoPerFire;
-
+    protected int maxAmmo;
+    protected int currentAmmo;
     protected float fireRate = 0.5f; 
     protected float nextFireTime = 0f;
 
@@ -26,8 +27,16 @@ public abstract class BaseWeapon : MonoBehaviour, IWeapons
     {
         if (!isEquipped) return;
         if (Time.time < nextFireTime) return;
+        if (currentAmmo < AmmoPerFire)
+        {
+            Debug.Log($"{weaponName} out of ammo.");
+            return;
+        }
 
         nextFireTime = Time.time + fireRate;
-        Debug.Log($"{weaponName} fired.");
+        currentAmmo -= AmmoPerFire;
+
+        Debug.Log($"{weaponName} fired. Ammo left: {currentAmmo}");
     }
+
 }

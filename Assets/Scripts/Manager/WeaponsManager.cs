@@ -18,14 +18,31 @@ public class WeaponsManager : MonoBehaviour
             }
         }
 
+    }
+    void Start()
+    {
         AttachWeapons(currentIndex);
     }
 
     void Update()
     {
+        WeaponsInputController();
+    }
+
+    void WeaponsInputController()
+    {
+        HandleFireInput();
+        HandleReloadInput();
+        HandleSwitchWeaponInput();
+    }
+    void HandleFireInput()
+    {
         if (Input.GetMouseButtonDown(0))
             currentWeapon.Fire();
+    }
 
+    void HandleReloadInput()
+    {
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (currentWeapon is IReloadAble reloadable)
@@ -33,11 +50,18 @@ public class WeaponsManager : MonoBehaviour
             else
                 Debug.Log("This weapon can't reload.");
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchWeapon(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(1);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchWeapon(2);
-
+    void HandleSwitchWeaponInput()
+    {
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            {
+                SwitchWeapon(i);
+                break;
+            }
+        }
     }
 
     void SwitchWeapon(int index)
