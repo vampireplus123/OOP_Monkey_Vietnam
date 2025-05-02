@@ -1,5 +1,3 @@
-
-
 interface IReloadAble
 {
     void ReloadAmmo();
