@@ -22,7 +22,7 @@ public abstract class BaseWeapon : MonoBehaviour, IWeapons
     public virtual  void EquipWeapon()
     {
         isEquipped = true;
-        Debug.Log($"{weaponName} equipped.");
+        Debug.Log($"{weaponName} equipped with {maxAmmo} ammo.");
     }
     public virtual void UnequipWeapon()
     {
@@ -42,6 +42,7 @@ public abstract class BaseWeapon : MonoBehaviour, IWeapons
         }
         nextFireTime = Time.time + fireRate;
         currentAmmo-= AmmoPerFire;
+        Debug.Log($"{weaponName}: Fired: {AmmoPerFire} bullets.");
         Debug.Log($"{weaponName}: Fired. Ammo left: {currentAmmo}");
     }
 

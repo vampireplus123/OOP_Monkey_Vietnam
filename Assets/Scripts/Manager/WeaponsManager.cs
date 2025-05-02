@@ -17,7 +17,6 @@ public class WeaponsManager : MonoBehaviour
                 weapons.Add(weapon);
             }
         }
-
     }
     void Start()
     {

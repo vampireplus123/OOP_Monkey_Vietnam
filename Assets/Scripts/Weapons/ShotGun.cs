@@ -10,6 +10,7 @@ public class ShotGun : BaseWeapon, IReloadAble,IMagazines
         maxAmmo = 2;
         currentAmmo = maxAmmo;
         AmmoPerFire = 2;
+        fireRate = 1.5f;
         Magazines = 3;
     }
 

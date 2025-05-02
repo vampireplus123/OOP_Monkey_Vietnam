@@ -24,7 +24,7 @@ public class Laser : BaseWeapon, IOverHeatable,IEnergyRestore
         if(heatLevel >= maxHeat)
         {
             OverHeat();
-            RestoreEnergy();
+            // RestoreEnergy();
         }
         heatLevel += heatIncreaseRate;
         Debug.Log($"{weaponName} fired. Heat level: {heatLevel}");
@@ -38,7 +38,7 @@ public class Laser : BaseWeapon, IOverHeatable,IEnergyRestore
         //     Debug.Log($"{weaponName} cooling down. Heat level: {heatLevel}");
         //     heatLevel -= heatIncreaseRate;
         // }   
-        StartCoroutine(DecreaseHeat()); 
+        StartCoroutine(DecreaseHeatProcessing()); 
     }
     public void RestoreEnergy()
     {
@@ -50,7 +50,7 @@ public class Laser : BaseWeapon, IOverHeatable,IEnergyRestore
         EnergyRemain--;
         Debug.Log($"{weaponName} energy restored. Remaining energy: {EnergyRemain}");
     }
-    IEnumerator DecreaseHeat()
+    IEnumerator DecreaseHeatProcessing()
     {
         while (heatLevel > 0)
         {
