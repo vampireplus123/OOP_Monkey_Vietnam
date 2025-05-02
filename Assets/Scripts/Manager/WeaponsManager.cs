@@ -37,7 +37,15 @@ public class WeaponsManager : MonoBehaviour
     void HandleFireInput()
     {
         if (Input.GetMouseButtonDown(0))
+        {
+            if (currentWeapon is IMagazines magazineWeapon && magazineWeapon.isOutOfMagazines)
+            {
+                Debug.Log("No magazines left! Can't fire.");
+                return;
+            }
+
             currentWeapon.Fire();
+        }
     }
 
     void HandleReloadInput()

@@ -3,29 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Pistol : BaseWeapon, IReloadAble,IMagazines
+public class Pistol : BaseWeapon, IReloadAble, IMagazines
 {
-    // private int maxAmmo = 12;
-    // private int currentAmmo;
-    
-    // protected float fireRate = 0.5f; 
-    // protected float nextFireTime = 0f;
-
-    // protected string weaponName;
+    public bool isOutOfMagazines { get; set; }
 
     private int Magazines;
 
-    void Awake()
+    void Start()
     {
         weaponName = "Pistol";
-        currentAmmo = maxAmmo;
-        AmmoPerFire = 1;
         maxAmmo = 12;
         currentAmmo = maxAmmo;
-        Magazines = 3;
         AmmoPerFire = 1;
+        Magazines = 3;
     }
-    
 
     public override void Fire()
     {
@@ -35,24 +26,41 @@ public class Pistol : BaseWeapon, IReloadAble,IMagazines
         {
             Debug.Log($"{weaponName}: Out of ammo!");
             ReloadAmmo();
+            return;
         }
+
         base.Fire();
     }
 
     public virtual void ReloadAmmo()
     {
-        currentAmmo += maxAmmo;
-        Debug.Log($"{weaponName}: Reloaded.");
         ReloadBulletMag();
-    }
-    public void ReloadBulletMag()
-    {
-        if(Magazines <=0)
+
+        if (isOutOfMagazines)
         {
-            Debug.Log($"{weaponName}: No more magazines left!");
+            Debug.Log($"{weaponName}: Can't reload, out of magazines!");
             return;
         }
-        Debug.Log($"{weaponName}: Magazines left: {Magazines}");
+
+        currentAmmo = maxAmmo;
+        Debug.Log($"{weaponName}: Reloaded.");
+    }
+
+    public void ReloadBulletMag()
+    {
+        if (Magazines <= 0)
+        {
+            OutOfMagazines();
+            return;
+        }
+
         Magazines--;
+        Debug.Log($"{weaponName}: Magazines left: {Magazines}");
+    }
+
+    public void OutOfMagazines()
+    {
+        Debug.Log($"{weaponName}: No more magazines left!");
+        isOutOfMagazines = true;
     }
 }

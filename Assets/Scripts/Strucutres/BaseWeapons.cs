@@ -11,14 +11,6 @@ public abstract class BaseWeapon : MonoBehaviour, IWeapons
     protected float nextFireTime = 0f;
 
     protected bool isEquipped;
-    public bool IsEquipped
-    {
-        get { return isEquipped; }
-        set { isEquipped = value; }
-    }
-
-
-
     public virtual  void EquipWeapon()
     {
         isEquipped = true;
