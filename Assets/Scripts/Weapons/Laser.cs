@@ -1,15 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
-public class Laser : BaseWeapon, IOverHeatable
+public class Laser : BaseWeapon, IOverHeatable,IEnergyRestore
 {
     private int heatLevel = 0;
     private const int maxHeat = 100;
     private const int heatIncreaseRate = 10;
 
+    private int EnergyRemain;
+
     void Awake()
     {
         weaponName = "Laser";
+        EnergyRemain = 2;
     }
     public override void Fire()
     {
@@ -21,6 +24,7 @@ public class Laser : BaseWeapon, IOverHeatable
         if(heatLevel >= maxHeat)
         {
             OverHeat();
+            RestoreEnergy();
         }
         heatLevel += heatIncreaseRate;
         Debug.Log($"{weaponName} fired. Heat level: {heatLevel}");
@@ -35,6 +39,16 @@ public class Laser : BaseWeapon, IOverHeatable
         //     heatLevel -= heatIncreaseRate;
         // }   
         StartCoroutine(DecreaseHeat()); 
+    }
+    public void RestoreEnergy()
+    {
+        if (EnergyRemain <= 0)
+        {
+            Debug.Log($"{weaponName}: No more energy left!");
+            return;
+        }
+        EnergyRemain--;
+        Debug.Log($"{weaponName} energy restored. Remaining energy: {EnergyRemain}");
     }
     IEnumerator DecreaseHeat()
     {
