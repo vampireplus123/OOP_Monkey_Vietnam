@@ -1,10 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class Laser : BaseWeapon, IOverHeatable
 {
-    private float heatLevel = 0f;
-    private const float maxHeat = 100f;
-    private const float heatIncreaseRate = 10f;
+    private int heatLevel = 0;
+    private int currentHeatLevel;
+    private const int maxHeat = 100;
+    private const int heatIncreaseRate = 10;
 
       void Awake()
     {
@@ -28,15 +30,21 @@ public class Laser : BaseWeapon, IOverHeatable
     public void OverHeat()
     {
         Debug.Log($"{weaponName} overheated!");
-        heatLevel -= heatIncreaseRate;
-        Debug.Log($"{weaponName} is cooling down.");
-
-        while (heatLevel > 10)
-        {
-            Debug.Log($"{weaponName} cooling down. Heat level: {heatLevel}");
-            heatLevel -= heatIncreaseRate * Time.deltaTime;
-            return;
-        }
+        // while (heatLevel > 10)
+        // {
+        //     Debug.Log($"{weaponName} cooling down. Heat level: {heatLevel}");
+        //     heatLevel -= heatIncreaseRate;
+        // }   
+        StartCoroutine(DecreaseHeat()); 
     }
-    
+    IEnumerator DecreaseHeat()
+    {
+        while (heatLevel > 0)
+        {
+            heatLevel -= heatIncreaseRate;
+            Debug.Log($"{weaponName} cooling down. Heat level: {heatLevel}");
+            yield return new WaitForSeconds(1f);
+        }
+        Debug.Log($"{weaponName} is cooled down.");
+    }
 }

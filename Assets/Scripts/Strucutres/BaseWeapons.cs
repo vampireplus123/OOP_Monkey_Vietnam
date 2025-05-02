@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class BaseWeapon : MonoBehaviour, IWeapons
@@ -9,8 +10,13 @@ public abstract class BaseWeapon : MonoBehaviour, IWeapons
     protected float fireRate = 0.5f; 
     protected float nextFireTime = 0f;
 
-    protected bool isEquipped = false;
-    public bool IsEquipped => isEquipped;
+    protected bool isEquipped;
+    public bool IsEquipped
+    {
+        get { return isEquipped; }
+        set { isEquipped = value; }
+    }
+
 
 
     public virtual  void EquipWeapon()
