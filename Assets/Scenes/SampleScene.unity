@@ -270,9 +270,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponBehaviours:
+  - {fileID: 1572833695}
   - {fileID: 821039262}
   - {fileID: 1559456377}
-  - {fileID: 1572833695}
   - {fileID: 2029073999}
 --- !u!1 &619394800
 GameObject:
