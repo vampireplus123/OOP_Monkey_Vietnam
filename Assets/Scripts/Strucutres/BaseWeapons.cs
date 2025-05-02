@@ -25,18 +25,18 @@ public abstract class BaseWeapon : MonoBehaviour, IWeapons
     }
     public virtual void Fire()
     {
-        if (!isEquipped) return;
-        if (Time.time < nextFireTime) return;
-        if (currentAmmo < AmmoPerFire)
+        // if (!isEquipped) return;
+        // if (Time.time < nextFireTime) return;
+        // nextFireTime = Time.time + fireRate;
+        // currentAmmo -= AmmoPerFire;
+        if (Time.time - nextFireTime < fireRate)
         {
-            Debug.Log($"{weaponName} out of ammo.");
+            Debug.Log($"{weaponName}: Wait for fire rate cooldown.");
             return;
         }
-
         nextFireTime = Time.time + fireRate;
-        currentAmmo -= AmmoPerFire;
-
-        Debug.Log($"{weaponName} fired. Ammo left: {currentAmmo}");
+        currentAmmo-= AmmoPerFire;
+        Debug.Log($"{weaponName}: Fired. Ammo left: {currentAmmo}");
     }
 
 }

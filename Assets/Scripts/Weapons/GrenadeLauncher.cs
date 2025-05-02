@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class GrenadeLauncher : BaseWeapon, IReloadAble
 {
-    private int maxAmmo = 2;
-    private int AmmoPerFire = 1;
-    private int currentAmmo;
-    private int TotalMag = 0;
-    private string weaponName;
-
+    private int TotalMag = 6;
     void Awake()
     {
         weaponName = "Grenade Launcher";
+        maxAmmo = 1;
+        fireRate = 2f;
         currentAmmo = maxAmmo;
         AmmoPerFire = 1;
     }
@@ -18,23 +15,12 @@ public class GrenadeLauncher : BaseWeapon, IReloadAble
     public override void Fire()
     {
         if (!isEquipped) return;
-
-        if (Time.time - nextFireTime < fireRate)
-        {
-            Debug.Log($"{weaponName}: Wait for fire rate cooldown.");
-            return;
-        }
-
-        if (TotalMag <= 0)
+        base.Fire();
+        if (currentAmmo <= 0)
         {
             Debug.Log($"{weaponName}: Out of ammo!");
             ReloadAmmo();
-            return;
         }
-
-        nextFireTime = Time.time + fireRate;
-        currentAmmo -= AmmoPerFire;
-        Debug.Log($"{weaponName}: Fired. Ammo left: {TotalMag}");
     }
 
     public virtual void ReloadAmmo()

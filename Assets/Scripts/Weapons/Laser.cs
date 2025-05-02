@@ -8,7 +8,7 @@ public class Laser : BaseWeapon, IOverHeatable
 
       void Awake()
     {
-        weaponName = "Pistol";
+        weaponName = "Laser";
     }
     public override void Fire()
     {
@@ -28,8 +28,15 @@ public class Laser : BaseWeapon, IOverHeatable
     public void OverHeat()
     {
         Debug.Log($"{weaponName} overheated!");
-        heatLevel -= 10f;
+        heatLevel -= heatIncreaseRate;
         Debug.Log($"{weaponName} is cooling down.");
+
+        while (heatLevel > 10)
+        {
+            Debug.Log($"{weaponName} cooling down. Heat level: {heatLevel}");
+            heatLevel -= heatIncreaseRate * Time.deltaTime;
+            return;
+        }
     }
     
 }

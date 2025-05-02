@@ -2,42 +2,27 @@ using UnityEngine;
 
 public class ShotGun : BaseWeapon, IReloadAble,IMagazines
 {
-    private int maxAmmo = 8;
-    private int currentAmmo;
-    private int Magazines = 2;
-
-
-
-      void Awake()
+    private int Magazines;
+  
+    void Awake()
     {
-        weaponName = "Pistol";
-    }
-    void Start()
-    {
+        weaponName = "ShotGun";
+        maxAmmo = 2;
         currentAmmo = maxAmmo;
         AmmoPerFire = 2;
+        Magazines = 3;
     }
 
     public override void Fire()
     {
-        if (!isEquipped) return;
-
-        if (Time.time - nextFireTime < fireRate)
-        {
-            Debug.Log($"{weaponName}: Wait for fire rate cooldown.");
-            return;
-        }
+       if (!isEquipped) return;
 
         if (currentAmmo <= 0)
         {
             Debug.Log($"{weaponName}: Out of ammo!");
             ReloadAmmo();
-            return;
         }
-
-        nextFireTime = Time.time + fireRate;
-        currentAmmo -= 2;
-        Debug.Log($"{weaponName}: Fired. Ammo left: {currentAmmo}");
+        base.Fire();
     }
 
     public virtual void ReloadAmmo()
