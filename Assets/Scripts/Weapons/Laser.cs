@@ -4,11 +4,10 @@ using UnityEngine;
 public class Laser : BaseWeapon, IOverHeatable
 {
     private int heatLevel = 0;
-    private int currentHeatLevel;
     private const int maxHeat = 100;
     private const int heatIncreaseRate = 10;
 
-      void Awake()
+    void Awake()
     {
         weaponName = "Laser";
     }
